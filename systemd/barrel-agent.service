@@ -1,0 +1,25 @@
+[Unit]
+Description=Barrel Agent - My ConfigService
+After=network.target
+ 
+[Service]
+Type=simple
+User=root
+Group=root
+LimitNOFILE=4096
+
+Restart=on-failure
+RestartSec=10
+
+WorkingDirectory=/
+ExecStart=/usr/local/bin/agent -conf /etc/barrel/agent.conf
+
+# make sure log directory exists and owned by syslog
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /etc/barrel
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=barrel-agent
+ 
+[Install]
+WantedBy=multi-user.target

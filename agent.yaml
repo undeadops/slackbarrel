@@ -1,0 +1,3 @@
+apps: 
+  - foobar
+interval: 15 

@@ -1,0 +1,25 @@
+[Unit]
+Description=Barrel Server - My ConfigService Server
+After=network.target
+ 
+[Service]
+Type=simple
+User=root
+Group=root
+LimitNOFILE=4096
+
+Restart=on-failure
+RestartSec=10
+
+WorkingDirectory=/
+ExecStart=/usr/local/bin/barrel-server -conf /etc/barrel/server.conf
+
+# make sure log directory exists and owned by syslog
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /etc/barrel
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=barrel-server
+ 
+[Install]
+WantedBy=multi-user.target

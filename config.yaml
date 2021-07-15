@@ -1,0 +1,27 @@
+---
+apps:
+  foobar:
+    package:
+    - name: vim
+      state: absent
+    - name: apache2
+      state: present
+    - name: libapache2-mod-php
+      state: present
+    - name: php
+      state: present
+    - name: nginx
+      state: absent
+    files:
+    - path: /var/www/html/index.html
+      state: absent
+    - src: foobar/index.php
+      path: /var/www/html/index.php
+      owner: www-data 
+      group: www-data 
+      mode: 644
+      state: present
+    service:
+    - name: apache2
+      action: reload
+
